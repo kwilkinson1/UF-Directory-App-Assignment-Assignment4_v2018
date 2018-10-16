@@ -1,4 +1,4 @@
-var config = require('../config/config'), 
+var config = require('../config/config'),
     request = require('request');
 
 module.exports = function(req, res, next) {
@@ -7,10 +7,10 @@ module.exports = function(req, res, next) {
       var addressTemp2 = addressTemp.toLowerCase();
       var addressTemp3 = addressTemp2.replace(/\s/g, "%20");
       var addressTemp4 = addressTemp3.replace(/,/g , "%2C");
-      
-    var options = { 
+
+    var options = {
       q: addressTemp4,
-      key: config.openCage.key,  
+      key: config.openCage.key,
       language: 'en',
       pretty: 1
     }
@@ -20,7 +20,7 @@ module.exports = function(req, res, next) {
       }, function(error, response, body) {
         if(error) {
           res.status(400).send(err);
-        } 
+        }
 
         var data = JSON.parse(body);
         req.results = data.results[0].geometry;
@@ -29,4 +29,4 @@ module.exports = function(req, res, next) {
   } else {
     next();
   }
-};  
+};
